@@ -12,7 +12,7 @@ app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024
 def home():
     return jsonify({"message": "Welcome to the Bias Detection and Mitigation API"}), 200
 
-@app.route('/upload', methods=['POST'])
+@app.route('/api/upload', methods=['POST'])
 def upload_file():
     if 'file' not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
@@ -25,7 +25,7 @@ def upload_file():
     file.save(file_path)
     return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
 
-@app.route('/health', methods=['GET'])
+@app.route('/api/health', methods=['GET'])
 def health_check():
     return jsonify({"status": "Server is running"}), 200
 
