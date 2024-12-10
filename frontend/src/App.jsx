@@ -1,10 +1,20 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import axios from 'axios';
+import { AppContext } from './Context';
 
 const App = () => {
+
+  const {url} = useContext(AppContext);
+
+  const handleClick =  async() => {
+    const response = await axios.get(url+"/api/health");
+    console.log(response);
+    
+  }
   return (
-    <h1 className="text-3xl font-bold underline">
-      Hello world!
-    </h1>
+    <div>
+      <button onClick={handleClick}>Click</button>
+    </div>
   )
 }
 
