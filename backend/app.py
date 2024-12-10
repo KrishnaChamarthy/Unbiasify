@@ -43,7 +43,7 @@ def handle_preprocessing():
     try:
         df = load_csv(recent_file_path)
         df_processed, label_encoders, scaler = preprocess_data(df)
-        return jsonify({"message": "Preprocessing completed", "columns": list(df_processed.head)}), 200
+        return jsonify({"message": "Preprocessing completed", "df": list(df_processed.head)}), 200
     except ValueError as e:
         return jsonify({"error": str(e)}), 400
 
