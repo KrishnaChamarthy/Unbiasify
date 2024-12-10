@@ -1,7 +1,8 @@
 from flask import Flask, request, jsonify
 import os
-from flask_cors import CORS
-
+from flask_cors import CORS  
+from utils.file_handler import save_file, load_csv
+from utils.preprocessing import preprocess_data, split_data
 
 app = Flask(__name__)
 
@@ -12,12 +13,12 @@ os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 app.config['MAX_CONTENT_LENGTH'] = 16 * 1024 * 1024  
 
-@app.route('/')
-def home():
-    return jsonify({"message": "Welcome to the Bias Detection and Mitigation API"}), 200
+recent_file_path = None
 
 @app.route('/api/upload', methods=['POST'])
 def upload_file():
+    global recent_file_path
+
     if 'file' not in request.files:
         return jsonify({"error": "No file uploaded"}), 400
 
@@ -25,9 +26,26 @@ def upload_file():
     if file.filename == '':
         return jsonify({"error": "No selected file"}), 400
 
-    file_path = os.path.join(app.config['UPLOAD_FOLDER'], file.filename)
-    file.save(file_path)
-    return jsonify({"message": "File uploaded successfully", "file_path": file_path}), 200
+    try:
+        recent_file_path = save_file(file, app.config['UPLOAD_FOLDER'])
+        df = load_csv(recent_file_path)
+        return jsonify({"message": "File uploaded successfully", "columns": list(df.columns)}), 200
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
+
+@app.route('/api/preprocessing', methods=['GET'])
+def handle_preprocessing():
+    global recent_file_path
+
+    if not recent_file_path:
+        return jsonify({"error": "No file uploaded to preprocess"}), 400
+
+    try:
+        df = load_csv(recent_file_path)
+        df_processed, label_encoders, scaler = preprocess_data(df)
+        return jsonify({"message": "Preprocessing completed", "columns": list(df_processed.head)}), 200
+    except ValueError as e:
+        return jsonify({"error": str(e)}), 400
 
 @app.route('/api/health', methods=['GET'])
 def health_check():
