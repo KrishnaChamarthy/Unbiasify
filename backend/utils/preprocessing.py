@@ -2,7 +2,7 @@ import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler, LabelEncoder
 
-def handle_missing_values(df, strategy='mean'):
+def handle_missing_values(df, strategy='drop'):
     if strategy == 'mean':
         return df.fillna(df.mean())
     elif strategy == 'median':
