@@ -20,7 +20,7 @@ function FileUpload() {
       return;
     }
     try {
-      const response = await axios.get(`${url}/api/preprocessing`, {
+      const response = await axios.get(`${url}/api/model`, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
