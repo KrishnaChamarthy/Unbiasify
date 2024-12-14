@@ -1,6 +1,6 @@
 import React, { useContext } from 'react'
 import { AppContext } from './Context';
-import FileUpload from './components/FileUpload';
+import Home from './page/Home';
 
 const App = () => {
 
@@ -8,7 +8,7 @@ const App = () => {
 
   return (
     <div>
-      <FileUpload />
+      <Home />
     </div>
   )
 }
