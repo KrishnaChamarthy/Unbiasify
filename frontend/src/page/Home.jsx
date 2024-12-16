@@ -1,10 +1,12 @@
 import React from 'react'
 import Navbar from '../components/Navbar'
+import Hero from '../components/Hero'
 
 const Home = () => {
   return (
     <div className='container mx-auto px-16'>
         <Navbar />
+        <Hero />
     </div>
   )
 }
