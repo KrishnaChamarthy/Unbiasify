@@ -7,4 +7,9 @@
 :root{
     font-family: Outfit;
     background-color: #f3f7f9;
+    
   }
+
+.hero-bg{
+  background-image: url('/background_img.svg');
+}
