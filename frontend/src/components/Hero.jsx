@@ -20,6 +20,11 @@ const Hero = () => {
             <div className='w-5 border-t-2 border-[#bfccd1]'></div>
             <FaCircleDot /> 
           </div>
+          <div className='w-full flex items-start justify-between flex-wrap gap-4'> 
+            <div className='lg:w-[24%] w-full h-[250px] bg-[#f3f7f9] border-4 border-white rounded-[3rem] shadow-xl'></div>
+            <div className='lg:w-[48%] w-full lg:h-[350px] h-[250px] bg-[#f3f7f9] border-4 border-white rounded-[3rem] shadow-xl'></div>
+            <div className='lg:w-[24%] w-full h-[250px] bg-[#f3f7f9] border-4 border-white rounded-[3rem] shadow-xl'></div>
+          </div>
         </div>
         
     </div>
